@@ -95,6 +95,15 @@ namespace Ans.Net10.Codegen.Helper
 }}
 ");
 
+			var hasAddon1 = !string.IsNullOrEmpty(CrudAddon);
+			if (hasAddon1)
+			{
+				sb1.Append($@"
+<div class=""row"">
+    <div class=""col-lg-6"">
+");
+			}
+
 			foreach (var catalog1 in Catalogs)
 			{
 				sb1.Append($@"
@@ -115,6 +124,19 @@ namespace Ans.Net10.Codegen.Helper
 		</ul>
 	</div>
 }}
+");
+			}
+
+			if (hasAddon1)
+			{
+				sb1.Append($@"
+	</div>
+    <div class=""col-lg-6"">
+
+        <partial name=""{CrudAddon}"" />
+
+    </div>
+</div>
 ");
 			}
 

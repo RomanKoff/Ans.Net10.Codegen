@@ -13,6 +13,7 @@ namespace Ans.Net10.Codegen.Helper
 		public string CrudAreaName { get; set; } = "DbAdmin";
 		public string CrudPath { get; set; } = "DbAdmin";
 		public string CrudIndex { get; set; } = null;
+		public string CrudAddon { get; set; } = null;
 
 		public bool DenyResources { get; set; }
 		public bool DenyHub { get; set; }
@@ -49,6 +50,7 @@ namespace Ans.Net10.Codegen.Helper
 			CrudAreaName = options.CrudAreaName;
 			CrudPath = options.CrudPath ?? CrudAreaName;
 			CrudIndex = options.CrudIndex;
+			CrudAddon = options.CrudAddon;
 
 			SuppConsole.WriteLineParam(nameof(SolutionNamespace), SolutionNamespace);
 			SuppConsole.WriteLineParam(nameof(SolutionPath), SolutionPath);
@@ -188,6 +190,7 @@ namespace Ans.Net10.Codegen.Helper
 		public string CrudAreaName { get; }
 		public string CrudPath { get; }
 		public string CrudIndex { get; }
+		public string CrudAddon { get; }
 
 		public Dictionary<string, CrudFaceHelper> CommonFaces { get; } = [];
 		public Dictionary<string, EnumItem> CommonEnums { get; } = [];
