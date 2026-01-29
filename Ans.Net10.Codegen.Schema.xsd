@@ -196,12 +196,21 @@
 				<xs:attribute name="ctrl" type="xs:string" />
 				<xs:attribute name="ctrl-cell" type="xs:string" />
 				<xs:attribute name="ctrl-view" type="xs:string" />
-				<xs:attribute name="ctrl-edit" type="xs:string" />
-				<xs:attribute name="ctrl-reg" type="xs:string" />
+				<xs:attribute name="ctrl-edit" type="xs:string" />				
 				<xs:attribute name="ctrl-cell-css" type="xs:string" />
 				<xs:attribute name="ctrl-view-css" type="xs:string" />
 				<xs:attribute name="ctrl-edit-css" type="xs:string" />
 				<xs:attribute name="ctrl-text-mw" type="xs:int" />
+				<xs:attribute name="ctrl-reg" type="xs:string" />
+				<xs:attribute name="ctrl-reg-mode" default="Auto">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Auto" />
+							<xs:enumeration value="Inputs" />
+							<xs:enumeration value="Select" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
 				<xs:attribute name="rem" type="xs:string" />
 			</xs:extension>
 		</xs:complexContent>

@@ -13,7 +13,7 @@ namespace Ans.Net10.Codegen.Helper
 		public string CrudAreaName { get; set; } = "DbAdmin";
 		public string CrudPath { get; set; } = "DbAdmin";
 		public string CrudIndex { get; set; } = null;
-		public string CrudAddon { get; set; } = null;
+		public string CrudStartLayout { get; set; } = null;
 
 		public bool DenyResources { get; set; }
 		public bool DenyHub { get; set; }
@@ -50,7 +50,7 @@ namespace Ans.Net10.Codegen.Helper
 			CrudAreaName = options.CrudAreaName;
 			CrudPath = options.CrudPath ?? CrudAreaName;
 			CrudIndex = options.CrudIndex;
-			CrudAddon = options.CrudAddon;
+			CrudStartLayout = options.CrudStartLayout;
 
 			SuppConsole.WriteLineParam(nameof(SolutionNamespace), SolutionNamespace);
 			SuppConsole.WriteLineParam(nameof(SolutionPath), SolutionPath);
@@ -190,7 +190,7 @@ namespace Ans.Net10.Codegen.Helper
 		public string CrudAreaName { get; }
 		public string CrudPath { get; }
 		public string CrudIndex { get; }
-		public string CrudAddon { get; }
+		public string CrudStartLayout { get; }
 
 		public Dictionary<string, CrudFaceHelper> CommonFaces { get; } = [];
 		public Dictionary<string, EnumItem> CommonEnums { get; } = [];
@@ -365,6 +365,7 @@ namespace Ans.Net10.Codegen.Helper
 			var filename2 = $"{path1}/_ViewStart.cshtml";
 			var path3 = $"{path1}/_Home";
 			var filename3 = $"{path3}/Index.cshtml";
+			var filename4 = $"{path3}/Nav.cshtml";
 
 			SuppIO.CreateDirectoryIfNotExists(path1);
 			SuppIO.FileWrite(filename1, TML_Views_Root_ViewImports());
@@ -374,6 +375,8 @@ namespace Ans.Net10.Codegen.Helper
 			SuppIO.CreateDirectoryIfNotExists(path3);
 			SuppIO.FileWrite(filename3, TML_Views_HomeIndex());
 			_logFile(filename3);
+			SuppIO.FileWrite(filename4, TML_Views_Nav());
+			_logFile(filename4);
 
 			foreach (var item1 in VisibleTables)
 			{

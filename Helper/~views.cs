@@ -65,8 +65,19 @@ namespace Ans.Net10.Codegen.Helper
 		private string TML_Views_HomeIndex()
 		{
 			var sb1 = new StringBuilder(COM_Attention_Razor());
-			sb1.Append($@"{TML_Views_HomeIndex_Navigation()}
+
+			if (CrudStartLayout != null)
+			{
+				sb1.Append($@"@{{
+	Layout = ""{CrudStartLayout}"";
+}}
 ");
+			}
+
+			sb1.Append($@"
+<partial name=""Nav.cshtml"" />
+");
+
 			return sb1.ToString();
 		}
 
@@ -75,9 +86,9 @@ namespace Ans.Net10.Codegen.Helper
 
 
 		/* ----------------------------------------------------------------- */
-		private string TML_Views_HomeIndex_Navigation()
+		private string TML_Views_Nav()
 		{
-			var sb1 = new StringBuilder();
+			var sb1 = new StringBuilder(COM_Attention_Razor());
 
 			sb1.Append($@"@{{
 	bool f1 = Current.HttpContext.IsClaimsAdmin();");
@@ -94,15 +105,6 @@ namespace Ans.Net10.Codegen.Helper
 			sb1.Append($@"
 }}
 ");
-
-			var hasAddon1 = !string.IsNullOrEmpty(CrudAddon);
-			if (hasAddon1)
-			{
-				sb1.Append($@"
-<div class=""row"">
-    <div class=""col-lg-6"">
-");
-			}
 
 			foreach (var catalog1 in Catalogs)
 			{
@@ -124,19 +126,6 @@ namespace Ans.Net10.Codegen.Helper
 		</ul>
 	</div>
 }}
-");
-			}
-
-			if (hasAddon1)
-			{
-				sb1.Append($@"
-	</div>
-    <div class=""col-lg-6"">
-
-        <partial name=""{CrudAddon}"" />
-
-    </div>
-</div>
 ");
 			}
 
@@ -402,33 +391,51 @@ namespace Ans.Net10.Codegen.Helper
 
 
 		private static string _getControlEdit(
-			string controlName,
-			string name,
-			string registry,
-			string cssClasses)
+			FieldItem item)
 		{
 			var sb1 = new StringBuilder();
-			sb1.Append($"new Edit_{controlName}(");
-			sb1.Append($"\"{name}\"");
-			sb1.Append($", Model.{name}");
-			if (registry != null)
-				sb1.Append($", registry: {registry}");
-			if (cssClasses != null)
-				sb1.Append($", cssClasses: \"{cssClasses}\"");
+			sb1.Append($"new Edit_{item.ControlEdit}(");
+			sb1.Append($"\"{item.Name}\"");
+			sb1.Append($", Model.{item.Name}");
+			if (item.ControlRegistry != null)
+				sb1.Append($", registry: {item.ControlRegistry}");
+			if (item.ControlRegistryMode != RegistryModeEnum.Auto)
+				sb1.Append($", registryMode: RegistryModeEnum.{item.ControlRegistryMode}");
+			if (item.ControlEditCss != null)
+				sb1.Append($", cssClasses: \"{item.ControlEditCss}\"");
 			sb1.Append(')');
 			return sb1.ToString();
 		}
 
 
-		private static string _getControlEdit(
-			FieldItem item)
-		{
-			return _getControlEdit(
-				item.ControlEdit,
-				item.Name,
-				item.ControlRegistry,
-				item.ControlEditCss);
-		}
+		//private static string _getControlEdit(
+		//	string controlName,
+		//	string name,
+		//	string registry,
+		//	string cssClasses)
+		//{
+		//	var sb1 = new StringBuilder();
+		//	sb1.Append($"new Edit_{controlName}(");
+		//	sb1.Append($"\"{name}\"");
+		//	sb1.Append($", Model.{name}");
+		//	if (registry != null)
+		//		sb1.Append($", registry: {registry}");
+		//	if (cssClasses != null)
+		//		sb1.Append($", cssClasses: \"{cssClasses}\"");
+		//	sb1.Append(')');
+		//	return sb1.ToString();
+		//}
+
+
+		//private static string _getControlEdit(
+		//	FieldItem item)
+		//{
+		//	return _getControlEdit(
+		//		item.ControlEdit,
+		//		item.Name,
+		//		item.ControlRegistry,
+		//		item.ControlEditCss);
+		//}
 
 	}
 

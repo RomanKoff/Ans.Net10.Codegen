@@ -82,11 +82,17 @@ namespace Ans.Net10.Codegen.Items
 			ControlView = source.ControlView ?? ControlDefault;
 			ControlEdit = source.ControlEdit ?? ControlDefault;
 
-			ControlRegistry = source.ControlRegistry ?? IsRegistry.Make($"Reg{Name}");
-
 			ControlCellCss = source.ControlCellCss;
 			ControlViewCss = source.ControlViewCss;
 			ControlEditCss = source.ControlEditCss;
+
+			ControlRegistry = source.ControlRegistry ?? IsRegistry.Make($"Reg{Name}");
+			ControlRegistryMode = source.ControlRegistryMode switch
+			{
+				CrudFieldRegistryModeEnum.Select => RegistryModeEnum.Select,
+				CrudFieldRegistryModeEnum.Inputs => RegistryModeEnum.Inputs,
+				_ => RegistryModeEnum.Auto,
+			};
 
 			ControlTextMaxWidth = source.ControlTextMaxWidth;
 
@@ -300,6 +306,7 @@ namespace Ans.Net10.Codegen.Items
 		public string ControlEdit { get; }
 
 		public string ControlRegistry { get; }
+		public RegistryModeEnum ControlRegistryMode { get; }
 
 		public string ControlCellCss { get; }
 		public string ControlViewCss { get; }

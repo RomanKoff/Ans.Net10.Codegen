@@ -35,7 +35,7 @@ namespace Ans.Net10.Codegen.Schema
 
 		[XmlAttribute("regex")]
 		public string RegexTemplate { get; set; }
-				
+
 		[XmlAttribute("enum-data")]
 		public string EnumData { get; set; }
 
@@ -78,9 +78,6 @@ namespace Ans.Net10.Codegen.Schema
 		[XmlAttribute("ctrl-edit")]
 		public string ControlEdit { get; set; }
 
-		[XmlAttribute("ctrl-reg")]
-		public string ControlRegistry { get; set; }
-
 		[XmlAttribute("ctrl-cell-css")]
 		public string ControlCellCss { get; set; }
 
@@ -92,6 +89,12 @@ namespace Ans.Net10.Codegen.Schema
 
 		[XmlAttribute("ctrl-text-mw")]
 		public int ControlTextMaxWidth { get; set; }
+
+		[XmlAttribute("ctrl-reg")]
+		public string ControlRegistry { get; set; }
+
+		[XmlAttribute("ctrl-reg-mode")]
+		public CrudFieldRegistryModeEnum ControlRegistryMode { get; set; } = CrudFieldRegistryModeEnum.Auto;
 
 		[XmlAttribute("rem")]
 		public string Remark { get; set; }
