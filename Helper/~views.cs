@@ -390,21 +390,37 @@ namespace Ans.Net10.Codegen.Helper
 		}
 
 
+		private static string _getControlEditProto(
+			string controlName,
+			string name,
+			string registry = null,
+			RegistryModeEnum registryMode = RegistryModeEnum.Auto,
+			string cssClasses = null)
+		{
+			var sb1 = new StringBuilder();
+			sb1.Append($"new Edit_{controlName}(");
+			sb1.Append($"\"{name}\"");
+			sb1.Append($", Model.{name}");
+			if (registry != null)
+				sb1.Append($", registry: {registry}");
+			if (registryMode != RegistryModeEnum.Auto)
+				sb1.Append($", registryMode: RegistryModeEnum.{registryMode}");
+			if (cssClasses != null)
+				sb1.Append($", cssClasses: \"{cssClasses}\"");
+			sb1.Append(')');
+			return sb1.ToString();
+		}
+
+
 		private static string _getControlEdit(
 			FieldItem item)
 		{
-			var sb1 = new StringBuilder();
-			sb1.Append($"new Edit_{item.ControlEdit}(");
-			sb1.Append($"\"{item.Name}\"");
-			sb1.Append($", Model.{item.Name}");
-			if (item.ControlRegistry != null)
-				sb1.Append($", registry: {item.ControlRegistry}");
-			if (item.ControlRegistryMode != RegistryModeEnum.Auto)
-				sb1.Append($", registryMode: RegistryModeEnum.{item.ControlRegistryMode}");
-			if (item.ControlEditCss != null)
-				sb1.Append($", cssClasses: \"{item.ControlEditCss}\"");
-			sb1.Append(')');
-			return sb1.ToString();
+			return _getControlEditProto(
+				item.ControlEdit,
+				item.Name,
+				item.ControlRegistry,
+				item.ControlRegistryMode,
+				item.ControlEditCss);
 		}
 
 

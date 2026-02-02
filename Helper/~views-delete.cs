@@ -71,23 +71,23 @@ namespace Ans.Net10.Codegen.Helper
 	</div>
 ");
 			}
-//			if (table.IsTree)
-//			{
-//				sb1.Append($@"
-//	<div class=""my-4"">
-//		@form1.AddView({_getControlView("Reference", "ParentPtr", 0, "RegParentPtr", null)})
-//		@form1.AddView({_getControlView("Int", "Order", 0, null, null)})
-//	</div>
-//");
-//			}
-//			else if (table.IsOrdered)
-//			{
-//				sb1.Append($@"
-//	<div class=""my-4"">
-//		@form1.AddView({_getControlView("Int", "Order", 0, null, null)})
-//	</div>
-//");
-//			}
+			if (table.IsTree)
+			{
+				sb1.Append($@"
+	<div class=""my-4"">
+		@form1.AddView({_getControlView("Reference", "ParentPtr", 0, "RegParentPtr", null)})
+		@form1.AddView({_getControlView("Int", "Order", 0, null, null)})
+	</div>
+");
+			}
+			else if (table.IsOrdered)
+			{
+				sb1.Append($@"
+	<div class=""my-4"">
+		@form1.AddView({_getControlView("Int", "Order", 0, null, null)})
+	</div>
+");
+			}
 			return sb1.ToString();
 		}
 

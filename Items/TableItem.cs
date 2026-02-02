@@ -130,7 +130,7 @@ namespace Ans.Net10.Codegen.Items
 						Type = CrudFieldTypeEnum.Int,
 					})
 				{
-					//IsSystem = true,
+					IsSystem = true,
 				});
 				DefaultSorting = source.DefaultSorting ?? "Order";
 			}
