@@ -196,7 +196,7 @@
 				<xs:attribute name="ctrl" type="xs:string" />
 				<xs:attribute name="ctrl-cell" type="xs:string" />
 				<xs:attribute name="ctrl-view" type="xs:string" />
-				<xs:attribute name="ctrl-edit" type="xs:string" />				
+				<xs:attribute name="ctrl-edit" type="xs:string" />
 				<xs:attribute name="ctrl-cell-css" type="xs:string" />
 				<xs:attribute name="ctrl-view-css" type="xs:string" />
 				<xs:attribute name="ctrl-edit-css" type="xs:string" />
@@ -256,6 +256,7 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attribute name="items-on-page" type="xs:int" default="0" />
 		<xs:attribute name="hidden" type="xs:boolean" />
 		<xs:attribute name="headers" type="xs:string">
 			<xs:annotation>

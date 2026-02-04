@@ -26,6 +26,7 @@ namespace Ans.Net10.Codegen.Items
 			Catalog = catalog;
 			Name = name;
 			AddUseinfo = source.AddUseinfo;
+			DefaultItemsOnPage = source.DefaultItemsOnPage;
 			if (!string.IsNullOrEmpty(source.Headers))
 			{
 				var a1 = new StringParser(source.Headers);
@@ -188,6 +189,7 @@ namespace Ans.Net10.Codegen.Items
 		public bool IsTree { get; }
 		public bool IsOrdered { get; }
 		public bool AddUseinfo { get; }
+		public int DefaultItemsOnPage { get; }
 		public bool IsHidden { get; set; }
 		public string DefaultSorting { get; }
 		public bool IsReadonly { get; }

@@ -8,6 +8,7 @@ namespace Ans.Net10.Codegen.Schema
 		List<PropertyXmlElement> Properties { get; set; }
 		List<ExtentionXmlElement> Extentions { get; set; }
 		bool AddUseinfo { get; set; }
+		int DefaultItemsOnPage { get; set; }
 		bool IsHidden { get; set; }
 		string Headers { get; set; }
 		string Description { get; set; }
@@ -37,6 +38,9 @@ namespace Ans.Net10.Codegen.Schema
 
 		[XmlAttribute("useinfo")]
 		public bool AddUseinfo { get; set; }
+
+		[XmlAttribute("items-on-page")]
+		public int DefaultItemsOnPage { get; set; }
 
 		[XmlAttribute("hidden")]
 		public bool IsHidden { get; set; }
