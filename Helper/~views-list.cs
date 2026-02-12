@@ -36,9 +36,16 @@ namespace Ans.Net10.Codegen.Helper
 ")}
 	var pagination1 = ViewData.GetPaginationHelper();
 	var count1 = pagination1.SkipItems;
+
+	var allowAdd1 = User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Add"");
+    var allowEdit1 = User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Edit"");
+    var allowDelete1 = User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Delete"");
 	{_getViewList_PageTitle(table)}
 }}
-{linkAdd1}
+@if (allowAdd1)
+{{
+	{linkAdd1}
+}}
 @if (Model?.Count() > 0)
 {{
 	<style>
@@ -54,9 +61,15 @@ namespace Ans.Net10.Codegen.Helper
 	<table class=""table table-hover w-auto table-crud lh-sm mb-3"">
 		<thead>
 			<tr>
-				<th>&nbsp;</th>
+				@if (allowEdit1)
+                {{
+                    <th>&nbsp;</th>
+                }}
 				<th class=""ps-0"">@Current.QueryString.GetSortingButton(""Id"", ""<i class=\""bi-key\""></i>"", false)</th>{TML_Views_List_Headers(table)}
-				<th>&nbsp;</th>
+				@if (allowDelete1)
+                {{
+                    <th>&nbsp;</th>
+                }}
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -65,11 +78,17 @@ namespace Ans.Net10.Codegen.Helper
 	{{
 		count1++;
 			<tr>
-				<th>{_getButtonEdit(table, allowEdit1)}</th>
+				@if (allowEdit1)
+                {{
+					<th>{_getButtonEdit(table, allowEdit1)}</th>
+				}}
 				<th class=""i1"">@item1.Id</th>
 {TML_Views_List_Fields(table)}
 
-				<th>{_getButtonDelete(allowDelete1)}</th>
+				@if (allowDelete1)
+				{{
+					<th>{_getButtonDelete(allowDelete1)}</th>
+				}}
 				<th class=""c1"">@count1</th>
 			</tr>
 	}}
@@ -77,7 +96,10 @@ namespace Ans.Net10.Codegen.Helper
 	</table>
 
 	<partial name=""/Areas/Ans/Helpers/Pagination.cshtml"" model='pagination1' />
-	{linkAdd1}
+	@if (allowAdd1)
+	{{
+		{linkAdd1}
+	}}
 }}
 else
 {{

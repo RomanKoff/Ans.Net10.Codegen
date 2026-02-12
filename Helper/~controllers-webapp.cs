@@ -1,5 +1,6 @@
 ﻿using Ans.Net10.Codegen.Items;
 using Ans.Net10.Common;
+using Ans.Net10.Common.Crud;
 using System.Text;
 
 namespace Ans.Net10.Codegen.Helper
@@ -51,7 +52,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		private string TML_Controllers_WebApp_Entity(
 			TableItem table)
 		{
-			var params1 = $"\"{table.Catalog.Name}\", \"{table.NamePluralize}\"";
+			var params1 = $"{table.Catalog.Name}.{table.NamePluralize}";
 			var sb1 = new StringBuilder(COM_Attention_CSharp());
 			sb1.Append($@"
 using Ans.Net10.Common;
@@ -70,7 +71,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 {{
 
 	[Authorize()]
-	[ActionAccess({params1}, null)]
+	[ActionAccess(""{params1}"")]
 	[Area(""{CrudAreaName}"")]
 	[Route(""{CrudPath}/{table.NamePluralize}"")]
 	[ApiExplorerSettings(IgnoreApi = true)]
@@ -91,12 +92,12 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		/* actions */
 
 
-		[ActionAccess({params1}, ""List"")]
+		[ActionAccess(""{params1}.List"")]
 		[HttpGet(""{table.HasMaster.Make("{masterPtr:int}")}"")]
 		{TML_Controllers_WebApp_List(table)}
 
 
-		[ActionAccess({params1}, ""Add"")]
+		[ActionAccess(""{params1}.Add"")]
 		[HttpGet(""{table.HasMaster.Make("{masterPtr:int}/add", "add")}"")]
 		public override ActionResult Add({table.HasMaster.Make($@"
 			int masterPtr")})
@@ -105,7 +106,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		}}
 
 
-		[ActionAccess({params1}, ""Add"")]
+		[ActionAccess(""{params1}.Add"")]
 		[HttpPost(""{table.HasMaster.Make("{masterPtr:int}/add", "add")}"")]
 		[ActionName(""Add"")]
 		[ValidateAntiForgeryToken]
@@ -117,7 +118,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		}}
 
 
-		[ActionAccess({params1}, ""Details"")]
+		[ActionAccess(""{params1}.Details"")]
 		[HttpGet(""details/{{id:int}}"")]
 		public override ActionResult Details(
 			int id)
@@ -126,7 +127,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		}}
 
 
-		[ActionAccess({params1}, ""Edit"")]
+		[ActionAccess(""{params1}.Edit"")]
 		[HttpGet(""edit/{{id:int}}"")]
 		public override ActionResult Edit(
 			int id)
@@ -135,7 +136,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		}}
 
 
-		[ActionAccess({params1}, ""Edit"")]
+		[ActionAccess(""{params1}.Edit"")]
 		[HttpPost(""edit/{{id:int}}"")]
 		[ActionName(""Edit"")]
 		[ValidateAntiForgeryToken]
@@ -147,7 +148,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		}}
 
 
-		[ActionAccess({params1}, ""Delete"")]
+		[ActionAccess(""{params1}.Delete"")]
 		[HttpGet(""delete/{{id:int}}"")]
 		public override ActionResult Delete(
 			int id)
@@ -156,7 +157,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 		}}
 
 
-		[ActionAccess({params1}, ""Delete"")]
+		[ActionAccess(""{params1}.Delete"")]
 		[HttpPost(""delete/{{id:int}}"")]
 		[ActionName(""Delete"")]
 		[ValidateAntiForgeryToken]
@@ -193,6 +194,9 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 			if (table.CustomDeleteViewName != null)
 				sb1.Append($@"
 			CustomDeleteViewName = ""{table.CustomDeleteViewName}"";");
+			if (table.AfterAdd != CrudEntityAfterAddEnum.List)
+				sb1.Append($@"
+			ViewAfterAdd = CrudViewEnum.{table.AfterAdd};");
 			return sb1.ToString();
 		}
 
@@ -230,7 +234,7 @@ namespace {ProjectWebAppNamespace}.Areas.{CrudAreaName}.Controllers
 			int masterPtr,")}
 			string order = null,
 			int page = 0,
-			int itemsOnPage = 0)
+			int itemsOnPage = {table.DefaultItemsOnPage})
 		{{");
 			if (table.IsTree)
 			{
