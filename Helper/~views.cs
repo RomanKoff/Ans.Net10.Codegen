@@ -91,14 +91,14 @@ namespace Ans.Net10.Codegen.Helper
 			var sb1 = new StringBuilder(COM_Attention_Razor());
 
 			sb1.Append($@"@{{
-	bool f1 = Current.HttpContext.IsClaimsAdmin();
+	var isAdmin1 = Current.HttpContext.IsClaimsAdmin();	
 }}
 ");
 
 			foreach (var catalog1 in Catalogs)
 			{
 				sb1.Append($@"
-@if (f1 || User.AllowAccessAction(""{catalog1.Name}""))
+@if (isAdmin1 || User.AllowAccessAction(""{catalog1.Name}""))
 {{
 	<div class=""mb-3"">
 		<h4>@_Res_Catalogs.{catalog1.Name}.ToHtml(true)</h4>
@@ -106,7 +106,7 @@ namespace Ans.Net10.Codegen.Helper
 				foreach (var table1 in catalog1.TopTables)
 				{
 					sb1.Append($@"
-				@if (f1 || User.AllowAccessAction(""{catalog1.Name}.{table1.NamePluralize}""))
+				@if (isAdmin1 || User.AllowAccessAction(""{catalog1.Name}.{table1.NamePluralize}""))
 				{{
 					<li><a asp-area=""{CrudAreaName}"" asp-controller=""{table1.NamePluralize}"" asp-action=""List"">@Res_{table1.NamePluralize}._TitlePluralize.ToHtml(true)</a></li>
 				}}");

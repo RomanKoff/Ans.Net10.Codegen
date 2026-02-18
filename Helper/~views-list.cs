@@ -37,9 +37,7 @@ namespace Ans.Net10.Codegen.Helper
 	var pagination1 = ViewData.GetPaginationHelper();
 	var count1 = pagination1.SkipItems;
 
-	var allowAdd1 = User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Add"");
-    var allowEdit1 = User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Edit"");
-    var allowDelete1 = User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Delete"");
+	{_getViewList_AccessInits(table)}
 	{_getViewList_PageTitle(table)}
 }}
 @if (allowAdd1)
@@ -127,9 +125,14 @@ else
 	{0}
 ")}
 	var count1 = 0;
+
+	{_getViewList_AccessInits(table)}
 	{_getViewList_PageTitle(table)}
 }}
-{linkAdd1}
+@if (allowAdd1)
+{{
+	{linkAdd1}
+}}
 @if (Model?.AllItems?.Count() > 0)
 {{
 	<style>
@@ -151,9 +154,15 @@ else
 	<table id=""tree1"" class=""table table-hover w-auto table-crud lh-sm mb-3"">
 		<thead>
 			<tr>
-				<th>&nbsp;</th>
+				@if (allowEdit1)
+                {{
+                    <th>&nbsp;</th>
+                }}
 				<th class=""ps-0""><i class=""bi-key""></i></th>{TML_Views_List_Headers(table)}
-				<th>&nbsp;</th>
+				@if (allowDelete1)
+                {{
+                    <th>&nbsp;</th>
+                }}
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -164,18 +173,27 @@ else
 		var ofs1 = $""ofs-{{item0.Level}}"";
 		count1++;
 			<tr>
-				<th>{_getButtonEdit(table, allowEdit1)}</th>
+				@if (allowEdit1)
+                {{
+					<th>{_getButtonEdit(table, allowEdit1)}</th>
+				}}
 				<th class=""i1"">@item1.Id</th>
 {TML_Views_List_Fields(table)}
 
-				<th>{_getButtonDelete(allowDelete1)}</th>
+				@if (allowDelete1)
+				{{
+					<th>{_getButtonDelete(allowDelete1)}</th>
+				}}
 				<th class=""c1"">@count1</th>
 			</tr>
 	}}
 		</tbody>
 	</table>
 
-	{linkAdd1}
+	@if (allowAdd1)
+	{{
+		{linkAdd1}
+	}}
 }}
 else
 {{
@@ -246,6 +264,18 @@ else
 
 
 		/* privates */
+
+		
+		private static string _getViewList_AccessInits(
+			TableItem table)
+		{
+			var sb1 = new StringBuilder();
+				sb1.Append($@"var isAdmin1 = Current.HttpContext.IsClaimsAdmin();
+	var allowAdd1 = isAdmin1 || User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Add"");
+    var allowEdit1 = isAdmin1 || User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Edit"");
+    var allowDelete1 = isAdmin1 || User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Delete"");");
+			return sb1.ToString();
+		}
 
 
 		private static string _getViewList_PageTitle(
