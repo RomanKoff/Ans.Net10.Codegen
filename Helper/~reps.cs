@@ -200,6 +200,23 @@ namespace {ProjectCommonNamespace}.Repositories
 
 		public RegistryList GetRegistry(
 			Func<{table.Name}, string> funcTitle,
+			IEnumerable<{table.Name}> items,
+			bool offNullItem)
+		{{
+			var data1 = items?.Select(
+				x => new RegistryItem(
+					x.Id.ToString(),
+					funcTitle(x),
+					0, false));
+			var reg1 = new RegistryList(data1);
+			if (!offNullItem)
+				reg1.AddNullItem();
+			return reg1;
+		}}
+
+
+		public RegistryList GetRegistry(
+			Func<{table.Name}, string> funcTitle,
 			Expression<Func<{table.Name}, bool>> filter,
 			string order,
 			bool offNullItem)
@@ -207,15 +224,8 @@ namespace {ProjectCommonNamespace}.Repositories
 			var query1 = GetItemsAsQueryable(filter);
 			if (!string.IsNullOrEmpty(order))
 				query1 = query1.ApplyOrder(new OrderBuilder(order));
-			var reg1 = new RegistryList(
-				query1?.Select(
-					x => new RegistryItem(
-						x.Id.ToString(),
-						funcTitle(x),
-						0, false)));
-			if (!offNullItem)
-				reg1.AddNullItem();
-			return reg1;
+			var items1 = query1.AsEnumerable();
+			return GetRegistry(funcTitle, items1, offNullItem);
 		}}
 
 
