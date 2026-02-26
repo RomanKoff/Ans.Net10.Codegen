@@ -114,7 +114,7 @@ namespace Ans.Net10.Codegen.Items
 						Type = CrudFieldTypeEnum.Reference,
 						IsNullable = true,
 						Remark = $"^{Name}",
-						ControlEdit = "_SelectXXX",
+						//ControlEdit = "_SelectXXX",
 					})
 				{
 					ReferenceTarget = Name,

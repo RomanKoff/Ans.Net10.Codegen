@@ -81,6 +81,14 @@ namespace Ans.Net10.Codegen.Helper
 	</div>
 ");
 			}
+			else if (table.IsOrdered)
+			{
+				sb1.Append($@"
+	<div class=""my-4"">
+		@form1.AddEdit({_getControlEditProto("Int", "Order")})
+	</div>
+");
+			}
 			return sb1.ToString();
 		}
 
