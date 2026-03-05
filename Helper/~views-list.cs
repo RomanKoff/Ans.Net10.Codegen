@@ -28,7 +28,7 @@ namespace Ans.Net10.Codegen.Helper
 			var allowAdd1 = !table.NotAdd;
 			var allowEdit1 = !table.NotEdit;
 			var allowDelete1 = !table.NotDelete;
-			var linkAdd1 = allowAdd1.Make(_getLinkAdd(table));
+			var linkAdd1 = allowAdd1.Make($"@if (allowAdd1) {{ {_getLinkAdd(table)} }}");
 			var sb1 = new StringBuilder(COM_Attention_Razor());
 			sb1.Append($@"@model IEnumerable<{table.Name}>
 @{{{TML_Views_FromCommon(table)}{table.Extentions.Get("View_List", "Init", @"
@@ -40,10 +40,7 @@ namespace Ans.Net10.Codegen.Helper
 	{_getViewList_AccessInits(table)}
 	{_getViewList_PageTitle(table)}
 }}
-@if (allowAdd1)
-{{
-	{linkAdd1}
-}}
+{linkAdd1}
 @if (Model?.Count() > 0)
 {{
 	<style>
@@ -94,10 +91,7 @@ namespace Ans.Net10.Codegen.Helper
 	</table>
 
 	<partial name=""/Areas/Ans/Helpers/Pagination.cshtml"" model='pagination1' />
-	@if (allowAdd1)
-	{{
-		{linkAdd1}
-	}}
+	{linkAdd1}
 }}
 else
 {{
@@ -265,12 +259,12 @@ else
 
 		/* privates */
 
-		
+
 		private static string _getViewList_AccessInits(
 			TableItem table)
 		{
 			var sb1 = new StringBuilder();
-				sb1.Append($@"var isAdmin1 = Current.HttpContext.IsClaimsAdmin();
+			sb1.Append($@"var isAdmin1 = Current.HttpContext.IsClaimsAdmin();
 	var allowAdd1 = isAdmin1 || User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Add"");
     var allowEdit1 = isAdmin1 || User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Edit"");
     var allowDelete1 = isAdmin1 || User.AllowAccessAction(""{table.Catalog.Name}.{table.NamePluralize}.Delete"");");
@@ -319,7 +313,7 @@ else
 			bool allow)
 		{
 			if (!allow)
-				return null;
+				return "&nbsp;";
 			return (table.IsReadonly)
 				? $@"<a class=""text-info"" asp-action=""Edit"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Detail_Html""><i class=""bi-card-text""></i></a>"
 				: $@"<a class=""text-success"" asp-action=""Edit"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Edit_Html""><i class=""bi-pencil-square""></i></a>";
@@ -329,9 +323,9 @@ else
 		private static string _getButtonDelete(
 			bool allow)
 		{
-			return (allow)
-				? $@"<a class=""text-danger"" asp-action=""Delete"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Delete_Html""><i class=""bi-x-circle""></i></a>"
-				: null;
+			if (!allow)
+				return "&nbsp;";
+			return $@"<a class=""text-danger"" asp-action=""Delete"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Delete_Html""><i class=""bi-x-circle""></i></a>";
 		}
 
 	}
