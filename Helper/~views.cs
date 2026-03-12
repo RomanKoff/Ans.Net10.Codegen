@@ -208,7 +208,7 @@ namespace Ans.Net10.Codegen.Helper
 			foreach (var item1 in table.SlaveAdvanceds)
 			{
 				sb1.Append($@"
-	<a class=""btn btn-info btn-sm"" asp-controller=""{item1.NamePluralize}"" asp-action=""List"" asp-route-masterPtr=""@Model.Id"">@Res_{item1.NamePluralize}._TitlePluralize.ToHtml(true) @Model.Slave_{item1.NamePluralize}?.Count.Make(""({{0}})"")</a>
+	<a target=""_blank"" class=""btn btn-info btn-sm"" asp-controller=""{item1.NamePluralize}"" asp-action=""List"" asp-route-masterPtr=""@Model.Id"">@Res_{item1.NamePluralize}._TitlePluralize.ToHtml(true) @Model.Slave_{item1.NamePluralize}?.Count.Make(""({{0}})"")</a>
 ");
 			}
 			sb1.Append($@"

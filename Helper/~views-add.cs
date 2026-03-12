@@ -1,5 +1,6 @@
 ﻿using Ans.Net10.Codegen.Items;
 using Ans.Net10.Common;
+using Ans.Net10.Common.Crud;
 using System.Text;
 
 namespace Ans.Net10.Codegen.Helper
@@ -47,11 +48,11 @@ namespace Ans.Net10.Codegen.Helper
 			sb1.Append($@"
 
 	<div class=""my-4"">
-		<input class=""btn btn-primary"" type=""submit"" value=""@form1.Res.Text_SubmitAdd_Html"" />
+		<input class=""btn btn-primary"" type=""submit"" value=""@form1.Res.Text_Submit{(table.AfterAdd == CrudEntityAfterAddEnum.List ? "Add" : "AddAndEdit")}_Html"" />
 		{_getCancel2List(table)}
 	</div>
 
-</form>");
+</form> ");
 			return sb1.ToString();
 		}
 
