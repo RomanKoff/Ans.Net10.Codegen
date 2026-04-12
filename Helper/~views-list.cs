@@ -283,7 +283,7 @@ else
 	Current.Page.PageItem = new MapPagesItem(null, $""{{form1.Res.TitlePluralize}} #{{masterPtr1}}"");
 
 	var masterTitle1 = RegMasterPtr.GetValue(masterPtr1.ToString());
-	Current.SetData(""PageSummary"", $""<a href=\""../{table.Master?.NamePluralize}/edit/{{masterPtr1}}\"">{{masterTitle1}}</a>"");");
+	Current.SetKey(""PageSummary"", $""<a href=\""../{table.Master?.NamePluralize}/edit/{{masterPtr1}}\"">{{masterTitle1}}</a>"");");
 			}
 			else
 			{
@@ -315,8 +315,8 @@ else
 			if (!allow)
 				return "&nbsp;";
 			return (table.IsReadonly)
-				? $@"<a class=""text-info"" asp-action=""Edit"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Detail_Html""><i class=""bi-card-text""></i></a>"
-				: $@"<a class=""text-success"" asp-action=""Edit"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Edit_Html""><i class=""bi-pencil-square""></i></a>";
+				? $@"<a target=""_blank"" class=""text-info"" asp-action=""Edit"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Detail_Html""><i class=""bi-card-text""></i></a>"
+				: $@"<a target=""_blank"" class=""text-success"" asp-action=""Edit"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Edit_Html""><i class=""bi-pencil-square""></i></a>";
 		}
 
 
@@ -325,7 +325,7 @@ else
 		{
 			if (!allow)
 				return "&nbsp;";
-			return $@"<a class=""text-danger"" asp-action=""Delete"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Delete_Html""><i class=""bi-x-circle""></i></a>";
+			return $@"<a target=""_blank"" class=""text-danger"" asp-action=""Delete"" asp-route-id=""@item1.Id"" title=""@form1.Res.Title_Delete_Html""><i class=""bi-x-circle""></i></a>";
 		}
 
 	}

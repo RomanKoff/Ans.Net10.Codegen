@@ -192,12 +192,12 @@ namespace Ans.Net10.Codegen.Helper
 			{
 				sb1.Append($@"
 	var masterTitle1 = RegMasterPtr.GetValue(Model.MasterPtr.ToString());
-	Current.SetData(""PageSummary"", $""<a href=\""../../{table.Master?.NamePluralize}/edit/{{Model.MasterPtr}}\"">{{masterTitle1}}</a> / {{itemTitle1}}"");");
+	Current.SetKey(""PageSummary"", $""<a href=\""../../{table.Master?.NamePluralize}/edit/{{Model.MasterPtr}}\"">{{masterTitle1}}</a> / {{itemTitle1}}"");");
 			}
 			else
 			{
 				sb1.Append($@"
-	Current.SetData(""PageSummary"", $""{{itemTitle1}}"");");
+	Current.SetKey(""PageSummary"", $""{{itemTitle1}}"");");
 			}
 			return sb1.ToString();
 		}

@@ -162,7 +162,7 @@ namespace Ans.Net10.Codegen.Helper
 				sb1.Append($@"
 
 	var masterTitle1 = RegMasterPtr.GetValue(Model.MasterPtr.ToString());
-	Current.SetData(""PageSummary"", $""{{masterTitle1}}"");");
+	Current.SetKey(""PageSummary"", $""{{masterTitle1}}"");");
 			}
 			return sb1.ToString();
 		}
