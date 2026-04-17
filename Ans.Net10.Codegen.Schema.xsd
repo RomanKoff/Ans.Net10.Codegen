@@ -175,6 +175,7 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
+				<xs:attribute name="ref-including" type="xs:boolean" default="true" />
 				<xs:attribute name="nullable" type="xs:boolean" />
 				<xs:attribute name="length-min" type="xs:int" />
 				<xs:attribute name="length-max" type="xs:int" />

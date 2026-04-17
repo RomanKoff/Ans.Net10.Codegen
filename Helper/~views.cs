@@ -108,7 +108,7 @@ namespace Ans.Net10.Codegen.Helper
 					sb1.Append($@"
 				@if (isAdmin1 || User.AllowAccessAction(""{catalog1.Name}.{table1.NamePluralize}""))
 				{{
-					<li><a asp-area=""{CrudAreaName}"" asp-controller=""{table1.NamePluralize}"" asp-action=""List"">@Res_{table1.NamePluralize}._TitlePluralize.ToHtml(true)</a></li>
+					<li><a target=""_blank"" asp-area=""{CrudAreaName}"" asp-controller=""{table1.NamePluralize}"" asp-action=""List"">@Res_{table1.NamePluralize}._TitlePluralize.ToHtml(true)</a></li>
 				}}");
 				}
 				sb1.Append($@"

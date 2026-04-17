@@ -24,6 +24,9 @@ namespace Ans.Net10.Codegen.Schema
 		[XmlAttribute("readonly")]
 		public string Readonly { get; set; }
 
+		[XmlAttribute("ref-including")]
+		public bool IsRefIncluding { get; set; } = true;
+
 		[XmlAttribute("nullable")]
 		public bool IsNullable { get; set; }
 

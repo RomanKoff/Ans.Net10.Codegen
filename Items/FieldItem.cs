@@ -52,6 +52,7 @@ namespace Ans.Net10.Codegen.Items
 				ReadonlyOnAdd = source.Readonly.Contains('a') || ReadonlyOnAdd;
 				ReadonlyOnEdit = source.Readonly.Contains('e') || ReadonlyOnEdit;
 			}
+			IsRefIncluding = source.IsRefIncluding;
 			IsNullable = source.IsNullable || IsNullable;
 			LengthMin = SuppValues.Default(LengthMin, source.LengthMin);
 			LengthMax = SuppValues.Default(LengthMax, source.LengthMax);
@@ -258,6 +259,7 @@ namespace Ans.Net10.Codegen.Items
 		public bool HideOnDetails { get; set; }
 		public bool ReadonlyOnAdd { get; set; }
 		public bool ReadonlyOnEdit { get; set; }
+		public bool IsRefIncluding { get; set; }
 		public bool IsNullable { get; set; }
 		public int LengthMin { get; set; }
 		public int LengthMax { get; set; }

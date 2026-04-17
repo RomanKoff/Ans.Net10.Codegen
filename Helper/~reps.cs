@@ -107,7 +107,9 @@ namespace {ProjectCommonNamespace}.Repositories
 			TableItem table)
 		{
 			var sb1 = new StringBuilder();
-			foreach (var item1 in table.ReferencesFrom.Select(x => x.Table))
+			foreach (var item1 in table.ReferencesFrom
+				.Where(x => x.Field.IsRefIncluding)
+				.Select(x => x.Table))
 			{
 				sb1.Append($@"
 				.Include(x => x.Slave_{item1.NamePluralize})");
@@ -198,7 +200,7 @@ namespace {ProjectCommonNamespace}.Repositories
 			{
 				sb1.Append($@"
 
-		public RegistryList GetRegistry(
+		public static RegistryList GetRegistry(
 			Func<{table.Name}, string> funcTitle,
 			IEnumerable<{table.Name}> items,
 			bool offNullItem)
