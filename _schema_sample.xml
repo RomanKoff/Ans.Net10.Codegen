@@ -3,9 +3,12 @@
 	   xmlns="http://tempuri.org/Ans.Net10.Codegen.Schema.xsd"
 	   xsi:schemaLocation="http://tempuri.org/Ans.Net10.Codegen.Schema.xsd https://raw.githubusercontent.com/RomanKoff/Ans.Net10.Codegen/refs/heads/master/Ans.Net10.Codegen.Schema.xsd">
 
+
 	<face name="LastLogin" title="Последний вход"/>
 
+
 	<catalog name="Guap" title="ГУАП">
+
 
 		<entity name="User" headers="Пользователь|Пользователи|пользователя">
 
@@ -15,6 +18,8 @@
 
 		</entity>
 
+
 	</catalog>
+
 
 </schema>
